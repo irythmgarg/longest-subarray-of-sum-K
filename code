@@ -1,0 +1,33 @@
+#include <iostream>
+#include <vector>
+#include <unordered_map>
+using namespace std;
+
+int lenOfLongestSubarr(vector<int>& arr, int k) {
+    unordered_map<int, int> mp; // Hash map to store prefix sums and their indices
+    int sum = 0;               // Cumulative sum of elements
+    int length = 0;            // Variable to store the length of the longest subarray
+
+    // Traverse the array
+    for (int i = 0; i < arr.size(); i++) {
+        sum += arr[i]; // Update the cumulative sum
+
+        // Case 1: If the cumulative sum is equal to k
+        if (sum == k) {
+            length = max(i + 1, length); // Update the maximum length
+        }
+
+        // Case 2: Check if sum - k exists in the hash map
+        if (mp.find(sum - k) != mp.end()) {
+            // If found, calculate the length of the subarray and update maximum length
+            length = max(i - mp[sum - k], length);
+        }
+
+        // Case 3: Store the cumulative sum in the hash map if not already present
+        if (mp.find(sum) == mp.end()) {
+            mp[sum] = i; // Store the index of the first occurrence of this sum
+        }
+    }
+
+    return length; // Return the length of the longest subarray
+}
