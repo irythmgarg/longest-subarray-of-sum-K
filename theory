@@ -1,0 +1,56 @@
+Theory
+Problem Statement:
+Given an array arr and an integer 
+𝑘
+k, the goal is to find the length of the longest subarray whose elements sum up to 
+𝑘
+k.
+
+Approach:
+
+Use a hash map to store the prefix sums and their corresponding indices.
+The prefix sum is the cumulative sum of elements from the start of the array up to the current position.
+For any subarray sum 
+𝑆[𝑖:𝑗]
+S[i:j]:𝑆[𝑖:𝑗]=
+prefix_sum[𝑗]−
+prefix_sum[𝑖−1]
+S[i:j]=prefix_sum[j]−prefix_sum[i−1]
+If 𝑆[𝑖:𝑗]=𝑘
+S[i:j]=k, then:
+prefix_sum[𝑗]−
+prefix_sum
+−1]=𝑘
+prefix_sum[j]−prefix_sum[i−1]=k
+Rearranging:
+prefix_sum[𝑖−1]=
+prefix_sum
+[𝑗]−𝑘
+prefix_sum[i−1]=prefix_sum[j]−k
+The hash map stores these prefix sums and helps efficiently check for this condition.
+Algorithm:
+
+Traverse the array while maintaining a cumulative sum.
+If the cumulative sum equals 
+𝑘
+k, update the maximum length to the current index + 1.
+Check if 
+sum
+−
+𝑘
+sum−k exists in the hash map:
+If yes, calculate the subarray length and update the maximum length.
+Store the sum in the hash map with its index if it is not already present (to ensure the longest subarray is found).
+Return the maximum length.
+Complexity:
+
+Time Complexity: 
+𝑂(𝑛)
+O(n), where 
+n is the size of the array. Each element is processed once.
+Space Complexity: 
+𝑂
+(
+𝑛
+)
+O(n), for the hash map storing prefix sums.
